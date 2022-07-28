@@ -44,8 +44,9 @@
                     <select
                         class="block w-full border border-gray-300 rounded-md p-1"
                         wire:model="scopeFilter">
-                        <option value="">All scope</option>
+                        <option value="">All type</option>
                         <option value="global">Global</option>
+                        <option value="Null">Null</option>
                         <option value="tag">Tag</option>
                         <option value="variant">Variant</option>
                     </select>

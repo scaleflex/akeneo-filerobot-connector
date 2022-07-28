@@ -14,7 +14,7 @@
                     <span>Back to previous</span>
                 </a>
             </div>
-            <div x-data="{ 'tab': 'specific' }" class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div x-data="{ 'tab': 'global' }" class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="flex p-6 sm:px-20 bg-white border-b border-gray-200 space-x-8">
                     <button
                         x-bind:class=" tab === 'global' ? 'font-bold text-indigo-500' : ''"
