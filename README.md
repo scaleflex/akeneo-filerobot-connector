@@ -97,9 +97,11 @@ Variant
 ### 4. Review Assets Sync
 You can review assets sync or not to Akeneo by to to Tab ```Products```, you can choose the way asset view
 - Product view
+
   ![byproduct](docs/asbyproduct.png)
 
 - Asset view
+
   ![byasset](docs/asv.png)
 
 You can
