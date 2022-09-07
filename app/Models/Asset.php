@@ -48,5 +48,4 @@ class Asset extends Model
     ];
 
     public $incrementing = false;
-
 }

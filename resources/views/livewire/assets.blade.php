@@ -24,9 +24,8 @@
             <select
                 class="block w-full border border-gray-300 rounded-md p-1"
                 wire:model="scopeFilter">
-                <option value="">All type</option>
+                <option value="">All scope</option>
                 <option value="global">Global</option>
-                <option value="null">Null</option>
                 <option value="tag">Tag</option>
                 <option value="variant">Variant</option>
             </select>

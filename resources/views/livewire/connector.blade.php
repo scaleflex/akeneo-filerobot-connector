@@ -19,7 +19,7 @@
                              </div>
                               <div x-show="open" class="absolute bg-white border border-gray-300 rounded w-48 space-y-2">
                                   <a href="{{ route('connector.add', 'ce') }}" class="block px-4 py-2 w-full hover:bg-gray-50 text-sm text-gray-500">Growth/CE Version</a>
-                                  <span class="block px-4 py-2 w-full hover:bg-gray-50 text-sm text-gray-300" href="">Enterprise Version</span>
+                                  <a class="block px-4 py-2 w-full hover:bg-gray-50 text-sm text-gray-500" href="{{ route('connector.add', 'ee') }}">Enterprise Version</a>
                               </div>
                           </div>
                        </div>
