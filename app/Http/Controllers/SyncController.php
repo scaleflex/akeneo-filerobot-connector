@@ -25,27 +25,16 @@ class SyncController extends Controller
 
     public function index()
     {
-        $connector = Connector::all()->first();
-        $mappings  = Mapping::where('connector_uuid', $connector->uuid)->get();
-        $clientBuilder = new \Akeneo\Pim\ApiClient\AkeneoPimClientBuilder($connector->akeneo_server_url);
-        $client = $clientBuilder->buildAuthenticatedByPassword($connector->akeneo_client_id, $connector->akeneo_secret, $connector->akeneo_username, $connector->akeneo_password);
+//        $connector = Connector::all()->first();
+//        $clientBuilder = new \Akeneo\Pim\ApiClient\AkeneoPimClientBuilder($connector->akeneo_server_url);
+//        $client = $clientBuilder->buildAuthenticatedByPassword($connector->akeneo_client_id, $connector->akeneo_secret, $connector->akeneo_username, $connector->akeneo_password);
 
-//        $assets = $this->getAssetsVariants(
-//            $connector->filerobot_token,
-//            $connector->filerobot_key,
-//            '032af501-b876-5112-92af-9578cfb50001'
-//        );
-//
-//        $assets = $this->getAssetTags(
-//            $connector->filerobot_token,
-//            $connector->filerobot_key,
-//            '032af501-b876-5112-92af-9578cfb50001'
-//        );
-
-//        $fileContent = file_get_contents("https://fyjnhqim.filerobot.com/akeneo-growth/emil123/photo-aaaa.jpeg?vh=23f6fb&vh=23f6fb&tl_px=410,380&br_px=655,606&ci_url_encoded=1", "r");
-//        file_put_contents(public_path('abc.jpeg'), $fileContent);
-
-//        dump($assets);
+        $clientBuilder = new \Akeneo\Pim\ApiClient\AkeneoPimClientBuilder('https://scaleflex.demo.cloud.akeneo.com/');
+        $client = $clientBuilder->buildAuthenticatedByPassword('2_433uguuq9bokc04so808cogk80wwcsog8w484s80kskk8oosok',
+                                                                '5japna41xscoocws0kc8sg0k8gckws00kosockws0k0kskskck',
+                                                                    'scalflex_filerobot_6489',
+                                                                '0670630cd');
+        $assetFamilies = $client->getAssetFamilyApi()->all();
     }
 
     //== Preparation

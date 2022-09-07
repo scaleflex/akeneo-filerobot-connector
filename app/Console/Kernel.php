@@ -16,6 +16,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('akeneo:prepare:ee')
+            ->everyMinute()
+            ->withoutOverlapping()
+            ->runInBackground()
+            ->then(function() {
+                $this->call('akeneo:sync:ee');
+            });
+
         $schedule->command('filerobot:sync')
                  ->everyMinute()
                  ->withoutOverlapping()

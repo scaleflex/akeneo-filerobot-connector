@@ -146,6 +146,7 @@ class ProcessSyncAttribute implements ShouldQueue
                     }
                 }
             }
+
             $connector->setup_status = Connector::SUCCESSFUL;
             $connector->setup_message = 'Get attribute families from akeneo successful';
 
