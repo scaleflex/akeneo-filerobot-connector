@@ -19,7 +19,6 @@ class AssetManager extends Model
         'uuid',
         'connector_uuid',
         'filerobot_uuid',
-        'tags',
         'url_cdn',
         'url_public',
         'asset_family',
