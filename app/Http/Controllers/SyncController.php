@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\FilerobotHelper;
 use App\Models\Connector;
 use App\Models\Log;
 use App\Models\Mapping;
@@ -25,16 +26,6 @@ class SyncController extends Controller
 
     public function index()
     {
-//        $connector = Connector::all()->first();
-//        $clientBuilder = new \Akeneo\Pim\ApiClient\AkeneoPimClientBuilder($connector->akeneo_server_url);
-//        $client = $clientBuilder->buildAuthenticatedByPassword($connector->akeneo_client_id, $connector->akeneo_secret, $connector->akeneo_username, $connector->akeneo_password);
-
-        $clientBuilder = new \Akeneo\Pim\ApiClient\AkeneoPimClientBuilder('https://scaleflex.demo.cloud.akeneo.com/');
-        $client = $clientBuilder->buildAuthenticatedByPassword('2_433uguuq9bokc04so808cogk80wwcsog8w484s80kskk8oosok',
-                                                                '5japna41xscoocws0kc8sg0k8gckws00kosockws0k0kskskck',
-                                                                    'scalflex_filerobot_6489',
-                                                                '0670630cd');
-        $assetFamilies = $client->getAssetFamilyApi()->all();
     }
 
     //== Preparation

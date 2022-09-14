@@ -9,6 +9,19 @@ use Illuminate\Support\Str;
 class FilerobotHelper
 {
 
+    public function getAssetsByCondition($token, $apiKey, $condition)
+    {
+        $filerobotUrl = "https://api.filerobot.com/{$token}/v4/files?recursive=1&q={$condition}" ;
+
+        $response = Http::withHeaders([
+            'X-Filerobot-Key' => $apiKey
+        ])->get($filerobotUrl);
+        if ($response->successful()) {
+            return new Collection($response->object()->files);
+        }
+        throw new \Exception('Filerobot API error: ' . $response->body());
+    }
+
     public function getAssetsByTag($token, $apiKey, $tag)
     {
         $filerobotUrl = "https://api.filerobot.com/{$token}/v4/files?recursive=1&q={$tag}" ;

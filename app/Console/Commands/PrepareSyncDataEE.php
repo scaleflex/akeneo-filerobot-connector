@@ -42,37 +42,18 @@ class PrepareSyncDataEE extends Command
                 $connector->save();
 
                 try {
-                    $assets = $filerobotHelper->getAssetsByTag($connector->filerobot_token, $connector->filerobot_key, urlencode('#filerobot_akeneo'));
+                    $assets = $filerobotHelper->getAssetsByCondition($connector->filerobot_token, $connector->filerobot_key, 'akeneo_enable:true');
 
                     foreach ($assets as $asset) {
 
                         $isExistInDB = AssetManager::where('filerobot_uuid', $asset->uuid)->where('connector_uuid', $connector->uuid)->first();
 
-                        $assetFamily = null;
-                        $assetAttribute = null;
-                        $assetScope = null;
-                        $assetLocale = null;
-
-                        foreach ($asset->tags as $tags) {
-                            foreach ($tags as $tag) {
-                                $label = $tag->label;
-                                if (str_starts_with($label, 'af_')) {
-                                    $assetFamily = substr($label, 3, strlen($label) -1);
-                                }
-                                if (str_starts_with($label, 'aa_')) {
-                                    $assetAttribute = substr($label, 3, strlen($label) -1);
-                                }
-                                if (str_starts_with($label, 'sc_')) {
-                                    $assetScope = substr($label, 3, strlen($label) -1);
-                                }
-                                if (str_starts_with($label, 'lc_')) {
-                                    $assetLocale = substr($label, 3, strlen($label) -1);
-                                }
-                            }
-                        }
+                        $assetFamily    = $asset->meta->akeneo_family;
+                        $assetAttribute = $asset->meta->akeneo_attribute;
+                        $assetScope     = $asset->meta->akeneo_scope;
+                        $assetLocale    = $asset->meta->akeneo_locale;
 
                         $data = [
-                            'tags' => serialize($asset->tags),
                             'url_cdn' => $asset->url->cdn,
                             'url_public' => $asset->url->public,
                             'asset_family' => $assetFamily,
