@@ -1,4 +1,4 @@
-# Filerobot Akeneo CE Connector by Scaleflex
+# Filerobot Akeneo Connector by Scaleflex
 ## Prerequisites
 - Create Filerobot Account [Here](https://www.scaleflex.com/request-a-demo)
 
