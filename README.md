@@ -114,6 +114,22 @@ You can
   - By Type: Global, Tag, Variant, Null(Special case)
   - Go to configuration for family of product
 
+### 5. Akeneo Enterprise Asset Manager
+
+#### 5.1 Create Meta group on Filerobot
+Go to Store -> Metadata Tab, and add meta follow picture bellow(API Value must exact match)
+![byasset](docs/meta.png)
+
+- **akeneo_enable**: Boolean type,  Enable sync to Akeneo or not
+- **akeneo_family**: Text type, Akeneo Asset manager Attribute family
+- **akeneo_attribute**: Text type, Attribute to sync
+- **akeneo_scope**: Text type, Scope
+- **akeneo_locale**: Text type, Locale
+
+#### 5.2 Add information in each asset
+Each asset click Detail, Metadata tab and add the information
+![img.png](docs/assetmeta.png)
+
 ## Warning
 - If there are any change on Akeneo, You could go to config and Click ```Submit``` to sync new update from akeneo 
 to System

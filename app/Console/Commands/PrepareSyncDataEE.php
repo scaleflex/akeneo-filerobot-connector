@@ -48,10 +48,29 @@ class PrepareSyncDataEE extends Command
 
                         $isExistInDB = AssetManager::where('filerobot_uuid', $asset->uuid)->where('connector_uuid', $connector->uuid)->first();
 
-                        $assetFamily    = $asset->meta->akeneo_family;
-                        $assetAttribute = $asset->meta->akeneo_attribute;
-                        $assetScope     = $asset->meta->akeneo_scope;
-                        $assetLocale    = $asset->meta->akeneo_locale;
+                        if (property_exists($asset->meta, 'akeneo_family')){
+                            $assetFamily    = $asset->meta->akeneo_family;
+                        } else {
+                            throw new \Exception('Filerobot Meta akeneo_family does not exist');
+                        }
+
+                        if (property_exists($asset->meta, 'akeneo_attribute')){
+                            $assetAttribute = $asset->meta->akeneo_attribute;
+                        } else {
+                            throw new \Exception('Filerobot Meta akeneo_attribute does not exist');
+                        }
+
+                        if (property_exists($asset->meta, 'akeneo_scope')){
+                            $assetScope     = $asset->meta->akeneo_scope;
+                        } else {
+                            throw new \Exception('Filerobot Meta akeneo_scope does not exist');
+                        }
+
+                        if (property_exists($asset->meta, 'akeneo_locale')){
+                            $assetLocale    = $asset->meta->akeneo_locale;
+                        } else {
+                            throw new \Exception('Filerobot Meta akeneo_locale does not exist');
+                        }
 
                         $data = [
                             'url_cdn' => $asset->url->cdn,
@@ -84,7 +103,7 @@ class PrepareSyncDataEE extends Command
                     $connector->activation = false;
                     $connector->lock_status = false;
                     $connector->filerobot_sync_status = Connector::FAILED;
-                    $connector->filerobot_sync_last_message = 'Please check Filerobot API key and token';
+                    $connector->filerobot_sync_last_message = $exception->getMessage();
                     $connector->save();
                 }
             });
