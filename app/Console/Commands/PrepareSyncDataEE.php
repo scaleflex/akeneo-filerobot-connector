@@ -86,10 +86,10 @@ class PrepareSyncDataEE extends Command
                             $data['filerobot_uuid'] = $asset->uuid;
                             $data['connector_uuid'] = $connector->uuid;
                             $data['message'] = '';
-                            $data['status'] = 'not_sync';
                             AssetManager::create($data);
                         } else {
                             if ($isExistInDB->status !== 'synced') {
+                                $data['status'] = 'not_sync';
                                 $isExistInDB->update($data);
                             }
                         }

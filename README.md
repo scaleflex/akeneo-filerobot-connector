@@ -3,7 +3,7 @@
 - Create Filerobot Account [Here](https://www.scaleflex.com/request-a-demo)
 
 ## Requirement
-Application use Laravel 9 and Livewire
+Application uses Laravel 9 and Livewire
 * PHP Version 8.1 and above
 * Redis
 * PostgresSQL
