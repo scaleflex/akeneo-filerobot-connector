@@ -222,26 +222,35 @@ class SyncProduct extends Command
     private function syncLink($client, Connector $connector, Mapping $mapping, Product $product, Asset $asset)
     {
         try {
+            $sizes = \App\Models\Size::where('connector_uuid', $connector->uuid)->get();
+            $scope = $mapping->scope === \App\Models\Connector::TYPE_NULL ? null : $mapping->scope;
+            $locale = $mapping->locale === \App\Models\Connector::TYPE_NULL ? null : $mapping->locale;
+            $url = $this->formatUrl($sizes, $asset->filerobot_url_cdn,$scope, $locale, $connector->fallback_size);
+
             if ($product->product_type === Product::TYPE_PRODUCT) {
                 $client->getProductApi()->upsert($asset->product_code, [
                     'values' => [
                         $mapping->akeneo_attribute => [
                             [
-                                'data'      => $asset->filerobot_url_cdn,
-                                'locale'    => $mapping->scope === \App\Models\Connector::TYPE_NULL ? null : $mapping->scope,
-                                'scope'     => $mapping->locale === \App\Models\Connector::TYPE_NULL ? null : $mapping->locale
+                                'data'      => $url,
+                                'locale'    => $scope,
+                                'scope'     => $locale
                             ]
                         ]
                     ]
                 ]);
             } elseif ($product->product_type === Product::TYPE_PRODUCT_MODEL) {
+                $scope = $mapping->scope === \App\Models\Connector::TYPE_NULL ? null : $mapping->scope;
+                $locale = $mapping->locale === \App\Models\Connector::TYPE_NULL ? null : $mapping->locale;
+                $url = $this->formatUrl($sizes, $asset->filerobot_url_cdn,$scope, $locale, $connector->fallback_size);
+
                 $client->getProductModelApi()->upsert($asset->product_code, [
                     'values' => [
                         $mapping->akeneo_attribute => [
                             [
-                                'data'      => $asset->filerobot_url_cdn,
-                                'locale'    => $mapping->scope === \App\Models\Connector::TYPE_NULL ? null : $mapping->scope,
-                                'scope'     => $mapping->locale === \App\Models\Connector::TYPE_NULL ? null : $mapping->locale
+                                'data'      => $url,
+                                'locale'    => $scope,
+                                'scope'     => $locale
                             ]
                         ]
                     ]
@@ -261,5 +270,31 @@ class SyncProduct extends Command
             $asset->akeneo_sync_status = Asset::STATUS_FAILED;
             $asset->save();
         }
+    }
+
+    private function formatUrl($sizes, $url, $scope, $locale, $defaultSize = '800x800')
+    {
+        $size = $sizes->first(function ($item, $index) use ($scope, $locale) {
+            $scope = $scope === null ? 'null' : $scope;
+            $locale = $locale === null ? 'null' : $locale;
+            return strtolower($item->scope) === strtolower($scope) && strtolower($item->locale) === strtolower($locale);
+        });
+
+        $sizeImage = $defaultSize;
+
+        if ($size) {
+            $sizeImage = $size->size;
+        }
+
+        $width = 800;
+        $height = 800;
+
+        $explode = explode('x', $sizeImage);
+        if (array_key_exists(0, $explode) && array_key_exists(1, $explode)) {
+            $width = $explode[0];
+            $height = $explode[1];
+        }
+
+        return $url . '&width=' . $width . '&height=' . $height;
     }
 }
