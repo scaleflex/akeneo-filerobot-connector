@@ -186,6 +186,7 @@ class MappingSpecific extends Component
             $scopable = false;
             $localizable = false;
 
+
             if ($mapping->scope !== \App\Models\Connector::TYPE_NULL) {
                 $scopable = true;
             }

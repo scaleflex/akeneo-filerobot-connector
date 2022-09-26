@@ -88,6 +88,36 @@ class ProcessSyncAttribute implements ShouldQueue
                 ];
             }
 
+            if ($connector->akeneo_version === 'ee') {
+                $assetFamilies = $client->getAssetFamilyApi()->all();
+                $assetFamiliesToStore = [];
+
+                foreach ($assetFamilies as $item) {
+                    $tempAttributes = $client->getAssetAttributeApi()->all($item['code']);
+                    $assetAttrList = [];
+
+                    if (!empty($tempAttributes)) {
+                        foreach ($tempAttributes as $attr) {
+                            if ($attr['type'] === 'text') {
+                                $assetAttrList[$attr['code']] = [
+                                    'code' => $attr['code'],
+                                    'labels' => $attr['labels'],
+                                    'value_per_locale' => $attr['value_per_locale'],
+                                    'value_per_channel' => $attr['value_per_channel'],
+                                ];
+                            }
+                        }
+                    }
+
+                    $assetFamiliesToStore[$item['code']] = [
+                        'code' => $item['code'],
+                        'labels' => $item['labels'],
+                        'attributes' => $assetAttrList
+                    ];
+                }
+                $connector->families = serialize($assetFamiliesToStore);
+            }
+
             $connector->scopes = json_encode($scopesArrays);
             $connector->save();
 

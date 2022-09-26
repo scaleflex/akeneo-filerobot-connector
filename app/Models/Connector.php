@@ -52,6 +52,11 @@ class Connector extends Model
 
         'scopes',
         'locales',
+
+        // For enterprise version
+        'families',
+
+        'fallback_size'
     ];
 
     protected $primaryKey = 'uuid';

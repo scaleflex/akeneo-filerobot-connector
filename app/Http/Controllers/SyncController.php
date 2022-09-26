@@ -26,6 +26,10 @@ class SyncController extends Controller
 
     public function index()
     {
+        $connector = Connector::all()->first();
+
+        $clientBuilder = new \Akeneo\Pim\ApiClient\AkeneoPimClientBuilder($connector->akeneo_server_url);
+        $client = $clientBuilder->buildAuthenticatedByPassword($connector->akeneo_client_id, $connector->akeneo_secret, $connector->akeneo_username, $connector->akeneo_password);
     }
 
     //== Preparation

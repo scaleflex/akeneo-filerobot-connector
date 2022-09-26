@@ -26,6 +26,7 @@ class AssetManager extends Model
         'scope',
         'locale',
         'status',
-        'message'
+        'message',
+        'metadata'
     ];
 }

@@ -9,6 +9,26 @@ use Illuminate\Support\Str;
 class FilerobotHelper
 {
 
+    public function getMetaList($token)
+    {
+        $filerobotUrl = "https://api.filerobot.com/{$token}/v4/settings" ;
+
+        $response = Http::get($filerobotUrl);
+        if ($response->successful()) {
+            $models = $response->object()->metadata->model;
+            foreach ($models as $model) {
+                $rawData = $model->groups;
+                foreach ($rawData as $item) {
+                    if (strtolower($item->name) === 'akeneo') {
+                        return new Collection($item->fields);
+                    }
+                }
+            }
+            return new Collection([]);
+        }
+        throw new \Exception('Filerobot API error: ' . $response->body());
+    }
+
     public function getAssetsByCondition($token, $apiKey, $condition)
     {
         $filerobotUrl = "https://api.filerobot.com/{$token}/v4/files?recursive=1&q={$condition}" ;
