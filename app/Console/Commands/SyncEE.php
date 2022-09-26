@@ -215,28 +215,15 @@ class SyncEE extends Command
         $result = [];
 
         $metaObject = unserialize($asset->metadata);
-
         $metaMappings->each(function($item, $index) use ($metaObject, $locales, &$result) {
 
             if (property_exists($metaObject, $item->metadata)) {
 
                 $propertyName = $item->metadata;
                 $subObject = $metaObject->$propertyName;
+                if (is_string($subObject)) {
 
-                if ($item->scope !== 'null') {
-                    if ($item->is_locale) {
-                        foreach($locales as $locale) {
-                            if (property_exists($subObject, $locale)) {
-                                $resultItem = [
-                                    'attribute' => $item->akeneo_attribute,
-                                    'locale' => $locale,
-                                    'channel' => $item->scope,
-                                    'data' => $subObject->$locale
-                                ];
-                                $result[] = $resultItem;
-                            }
-                        }
-                    } else {
+                    if ($item->scope !== 'null') {
                         $resultItem = [
                             'attribute' => $item->akeneo_attribute,
                             'locale' => null,
@@ -244,33 +231,49 @@ class SyncEE extends Command
                             'data' => 'Check This'
                         ];
                         $result[] = $resultItem;
-                    }
-                } else {
-                    if ($item->is_locale) {
-
-                        foreach($locales as $locale) {
-                            if (property_exists($subObject, $locale)) {
-                                $resultItem = [
-                                    'attribute' => $item->akeneo_attribute,
-                                    'locale' => $locale,
-                                    'channel' => null,
-                                    'data' => $subObject->$locale
-                                ];
-                                $result[] = $resultItem;
-                            }
-                        }
                     } else {
                         $resultItem = [
                             'attribute' => $item->akeneo_attribute,
                             'locale' => null,
                             'channel' => null,
-                            'data' => 'Check this'
+                            'data' => $subObject
                         ];
                         $result[] = $resultItem;
+                    }
+                } else {
+                    if ($item->scope !== 'null') {
+                        if ($item->is_locale) {
+                            foreach($locales as $locale) {
+                                if (property_exists($subObject, $locale)) {
+                                    $resultItem = [
+                                        'attribute' => $item->akeneo_attribute,
+                                        'locale' => $locale,
+                                        'channel' => $item->scope,
+                                        'data' => $subObject->$locale
+                                    ];
+                                    $result[] = $resultItem;
+                                }
+                            }
+                        }
+                    } else {
+                        if ($item->is_locale) {
+                            foreach($locales as $locale) {
+                                if (property_exists($subObject, $locale)) {
+                                    $resultItem = [
+                                        'attribute' => $item->akeneo_attribute,
+                                        'locale' => $locale,
+                                        'channel' => null,
+                                        'data' => $subObject->$locale
+                                    ];
+                                    $result[] = $resultItem;
+                                }
+                            }
+                        }
                     }
                 }
             }
         });
+     
         //return array of meta
         return $result;
     }
