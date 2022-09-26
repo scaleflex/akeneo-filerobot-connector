@@ -51,17 +51,33 @@
                                         </svg>
                                         <span>Asset Manager</span>
                                     </span>
+                                    <span class="flex justify-start space-x-1"
+                                          :class="current==='meta' ? 'text-bold cursor-pointer  text-indigo-400' : ' cursor-pointer'"
+                                          @click="current='meta'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 block mt-0.5">
+                                          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                                        </svg>
+                                        <span>Meta Mapping</span>
+                                    </span>
                                 @endif
                                 <span class="flex justify-start space-x-1"
                                       :class="current==='product' ? 'text-bold cursor-pointer  text-indigo-400' : ' cursor-pointer'"
                                       @click="current='product'">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block mt-0.5" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Products</span>
-                            </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block mt-0.5" fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                      <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                    <span>Products</span>
+                                </span>
+                                <span class="flex justify-start space-x-1"
+                                      :class="current==='size' ? 'text-bold cursor-pointer  text-indigo-400' : ' cursor-pointer'"
+                                      @click="current='size'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 block mt-0.5">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
+                                    </svg>
+                                    <span>Image size</span>
+                                </span>
                             @endif
                         </div>
                         <div class="py-6" wire:poll.750ms
@@ -201,6 +217,12 @@
                                                     class="mt-1 block w-full border border-gray-300 rounded-md py-2 px-4"
                                                     type="text" wire:model="akeneo_password" id="akeneo_password"/>
                                             </div>
+                                            <div class="mt-4">
+                                                <x-jet-label for="fallback_size" value="{{ __('Fallback Size') }}"/>
+                                                <x-jet-input
+                                                    class="mt-1 block w-full border border-gray-300 rounded-md py-2 px-4"
+                                                    type="text" wire:model="fallback_size" id="fallback_size"/>
+                                            </div>
                                             @if(!$connector->lock_status)
                                                 <x-jet-button class="mt-4">
                                                     {{ __('Submit') }}
@@ -227,6 +249,12 @@
                             </div>
                             <div x-show="current==='product'">
                                 @livewire('product', ['connectorUUID' => $connector->uuid])
+                            </div>
+                            <div x-show="current==='size'">
+                                @livewire('scope-size', ['connectorUUID' => $connector->uuid])
+                            </div>
+                            <div x-show="current==='meta'">
+                                @livewire('meta-mapping', ['connectorUUID' => $connector->uuid])
                             </div>
                         @endif
                     </div>

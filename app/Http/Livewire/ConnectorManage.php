@@ -19,6 +19,8 @@ class ConnectorManage extends Component
     public string $akeneo_username = '';
     public string $akeneo_password = '';
 
+    public string $fallback_size = '';
+
     public string $email = '';
 
     public \App\Models\Connector $connector;
@@ -42,6 +44,7 @@ class ConnectorManage extends Component
         $this->email        = $this->connector->email;
         $this->akeneo_username = $this->connector->akeneo_username;
         $this->akeneo_password = $this->connector->akeneo_password;
+        $this->fallback_size = $this->connector->fallback_size;
 
     }
 
@@ -72,6 +75,7 @@ class ConnectorManage extends Component
             'akeneo_password' => $this->akeneo_password,
             'setup_status' => \App\Models\Connector::PENDING,
             'setup_message' => 'Configuration updated',
+            'fallback_size' => $this->fallback_size
         ]);
 
         if ($verifyUpdateStatus) {
