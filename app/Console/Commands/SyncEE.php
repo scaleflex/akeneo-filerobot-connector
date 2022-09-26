@@ -54,7 +54,6 @@ class SyncEE extends Command
                         $connector->akeneo_username,
                         $connector->akeneo_password);
                 } catch (\Exception $exception) {
-                    dump($exception->getMessage());
                     $connector->akeneo_sync_status = Connector::FAILED;
                     $connector->akeneo_sync_last_message = 'Please check akeneo credentials';
 
@@ -153,12 +152,12 @@ class SyncEE extends Command
                         }
 
 
-//                        $asset->status = 'synced';
-//                        $asset->save();
+                        $asset->status = 'synced';
+                        $asset->save();
                     } catch (\Exception $exception) {
-//                        $asset->status = 'failed';
-//                        $asset->message = $exception->getMessage();
-//                        $asset->save();
+                        $asset->status = 'failed';
+                        $asset->message = $exception->getMessage();
+                        $asset->save();
                     }
                 }
             });
