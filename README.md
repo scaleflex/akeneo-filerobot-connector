@@ -56,10 +56,11 @@ to ```Successfull```
   ![submit](docs/submit.png)
 
 ### 2. Config Mapping
-* After finished setup process, please go to mapping, choose which mapping family you want 
+After finished setup process, please go to mapping, choose which mapping family you want 
 to config
   ![submit](docs/mapping.png)
-* There are two settings
+
+#### There are two settings
 
 Type Global: Mapping for image without scope and locale specific
    ![global](docs/global.png)
@@ -77,6 +78,20 @@ Type Scope and Locale:
   - Attribute: Akeneo Attribute, Attribute (will change depend on its config(Value per channel, Value per locale)):
   ![akeneoscope](docs/akeneoscope.png)
   - Behavior: Same as Global type
+
+#### Image size 
+You can config image size for each locale and scope, by click Image size in Tab
+
+![filerobot](docs/imagesize.png)
+
+- Scope: Scope from Akeneo
+- Locale: Each Scope have a locale to sync
+- Size: Image size, Format axb, a and b are intergers
+
+If you use the same size, or system can not find any configuration match specific scope and locale, It will use fallback 
+size in Connector Setting
+
+![filerobot](docs/fallback.png)
 
 ### 3. Image Product in Filerobot
 ![filerobot](docs/frproduct.png)
@@ -123,12 +138,32 @@ Go to Store -> Metadata Tab, and add meta follow picture bellow(API Value must e
 - **akeneo_enable**: Boolean type,  Enable sync to Akeneo or not
 - **akeneo_family**: Text type, Akeneo Asset manager Attribute family
 - **akeneo_attribute**: Text type, Attribute to sync
-- **akeneo_scope**: Text type, Scope
-- **akeneo_locale**: Text type, Locale
+- **akeneo_scope**: Multiple choices, All scopes from akeneo, 
+- **akeneo_locale**: Multiple choices, All locales from akeneo
 
 #### 5.2 Add information in each asset
 Each asset click Detail, Metadata tab and add the information
 ![img.png](docs/assetmeta.png)
+
+#### 5.3 Metadata mapping
+Each asset in filerobot can have difference metadata, If you want to sync it to akeneo you can use Meta mapping Tab
+![byasset](docs/metamapping.png)
+
+- Metadata: metadata from filerobot
+- Family: Family of Asset Manager
+- Attribute: Attribute belong to Family
+  - If Attribute is Global -> Has Local will uncheck
+  - If Attribute has value per channel -> It shows scopes list to choose 
+    - You need define difference metadata for each scope like: title_commerce -> attribute title in Scope Commerce
+    title_print -> attribute in scope Print
+  - If Attribute has value per locale, metadata must have Regional variant when create metadata
+    ![byasset](docs/meta_locale.png)
+    
+    And Language in Filerobot must match the code in Akeneo, You can change it in store setting -> Regional Variant tab
+    for Filerobot and Setting in Akeneo
+  
+    ![byasset](docs/locale_filerobot.png)
+    ![byasset](docs/locale_akeneo.png)
 
 ## Warning
 - If there are any change on Akeneo, You could go to config and Click ```Submit``` to sync new update from akeneo 
