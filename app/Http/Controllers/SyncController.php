@@ -21,7 +21,6 @@ class SyncController extends Controller
         $client = $clientBuilder->buildAuthenticatedByPassword($connector->akeneo_client_id, $connector->akeneo_secret, $connector->akeneo_username, $connector->akeneo_password);
 
         $items = $client->getLocaleApi()->listLocales();
-        dump($items);
     }
 
     public function index()
