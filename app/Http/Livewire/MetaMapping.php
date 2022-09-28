@@ -37,7 +37,10 @@ class MetaMapping extends Component
 
         $this->scopes = json_decode($this->connector->scopes, true);
         $this->families = unserialize($this->connector->families);
-        dump($this->families);
+
+        if (!$this->families) {
+            $this->families = [];
+        }
         $this->mappings = new Collection([]);
 
         $this->reloadMapping();

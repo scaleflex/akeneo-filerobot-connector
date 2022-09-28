@@ -273,7 +273,7 @@ class SyncEE extends Command
                 }
             }
         });
-     
+
         //return array of meta
         return $result;
     }
