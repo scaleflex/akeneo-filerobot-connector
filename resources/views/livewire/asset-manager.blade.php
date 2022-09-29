@@ -23,7 +23,7 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
             <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Family
                 </th>
@@ -44,8 +44,8 @@
             <tbody class="bg-white divide-y divide-gray-200">
             @foreach($assets as $asset)
                 <tr class="hover:bg-gray-50 cursor-pointer" wire:key="{{$asset->uuid}}">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        <img class="img-thumbnail rounded w-20 h-20"
+                    <td class="px-6 py-4 block w-32 rounded">
+                        <img class="img-thumbnail"
                              src="{{ $asset->url_cdn }}&width=100&height=100"/>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
