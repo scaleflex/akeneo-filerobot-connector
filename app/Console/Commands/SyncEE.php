@@ -187,7 +187,7 @@ class SyncEE extends Command
             $height = $explode[1];
         }
 
-        return $url . '&width=' . $width . '&height=' . $height;
+        return $url . '&width=' . $width . '&height=' . $height . '&&gravity=auto';
     }
 
     private function getMetaFormat($connector, $asset)
