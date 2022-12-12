@@ -97,8 +97,7 @@ class PrepareFilerobotEntity extends Command
                                 $assetEntityAttribute = $asset->meta->akeneo_entity_attribute;
 
                                 try {
-//                                    $akeneoRefEnAttr = $client->getReferenceEntityAttributeApi()->get($assetEntity, $assetEntityAttribute);
-                                    $akeneoRefEnAttr = $client->getReferenceEntityAttributeApi()->get('aaaa', '1233a');
+                                    $akeneoRefEnAttr = $client->getReferenceEntityAttributeApi()->get($assetEntity, $assetEntityAttribute);
                                 } catch (\Exception $exception) {
                                     throw new \Exception($exception->getMessage());
                                 }
