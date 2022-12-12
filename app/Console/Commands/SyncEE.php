@@ -56,8 +56,6 @@ class SyncEE extends Command
                 } catch (\Exception $exception) {
                     $connector->akeneo_sync_status = Connector::FAILED;
                     $connector->akeneo_sync_last_message = 'Please check akeneo credentials';
-
-                    $connector->activation = false;
                     $connector->lock_status = false;
                     $connector->save();
                 }
@@ -187,7 +185,7 @@ class SyncEE extends Command
             $height = $explode[1];
         }
 
-        return $url . '&width=' . $width . '&height=' . $height . '&&gravity=auto';
+        return $url . '&width=' . $width . '&height=' . $height . '&gravity=auto';
     }
 
     private function getMetaFormat($connector, $asset)

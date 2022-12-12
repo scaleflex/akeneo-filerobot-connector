@@ -33,6 +33,14 @@ class Kernel extends ConsoleKernel
                      $this->call('akeneo:sync');
                  });
 
+        $schedule->command('akeneo:filerobot:entity-prepare')
+            ->everyMinute()
+            ->withoutOverlapping()
+            ->runInBackground()
+            ->then(function() {
+                $this->call('akeneo:sync:ee:entity');
+            });
+
         $schedule->command('telescope:prune')->daily();
     }
 

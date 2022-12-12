@@ -33,6 +33,8 @@ class Asset extends Model
         'filerobot_url_public',
         'filerobot_url_public_old',
 
+        'filename',
+
         'version',
         'akeneo_latest_version',
         'akeneo_latest_attribute',

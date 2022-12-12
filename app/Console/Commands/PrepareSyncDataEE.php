@@ -137,7 +137,6 @@ class PrepareSyncDataEE extends Command
                     $connector->lock_status = false;
                     $connector->save();
                 } catch (\Exception $exception) {
-                    $connector->activation = false;
                     $connector->lock_status = false;
                     $connector->filerobot_sync_status = Connector::FAILED;
                     $connector->filerobot_sync_last_message = $exception->getMessage();

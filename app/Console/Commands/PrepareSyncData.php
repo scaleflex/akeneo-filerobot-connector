@@ -108,7 +108,6 @@ class PrepareSyncData extends Command
                             $connector->filerobot_sync_status = Connector::FAILED;
                             $connector->filerobot_sync_last_message = 'Failed to get  assets for product ' . $product->filerobot_reference;
 
-                            $connector->activation = false;
                             $connector->lock_status = false;
 
                             $connector->save();
