@@ -73,12 +73,14 @@ class SyncEEEntity extends Command
 
                         $labelData = json_decode($asset->entity_label, true);
                         $labels = [];
-                        foreach ($labelData as $locale => $label) {
-                            $labels[] = [
-                                'channel' => null,
-                                'locale' => $locale,
-                                'data' => $label
-                            ];
+                        if ($labelData) {
+                            foreach ($labelData as $locale => $label) {
+                                $labels[] = [
+                                    'channel' => null,
+                                    'locale' => $locale,
+                                    'data' => $label
+                                ];
+                            }
                         }
 
                         if (!empty($scopes)) {
@@ -155,7 +157,7 @@ class SyncEEEntity extends Command
                                     throw new $exception;
                                 }
 
-                                $client->getReferenceEntityRecordApi()->upsert($asset->entity, $asset->entity_code, [
+                                $syncData = [
                                     'code' => $asset->entity_code,
                                     'values' => [
                                         $asset->entity_attribute => [
@@ -166,9 +168,14 @@ class SyncEEEntity extends Command
                                                 'data' => $mediaCode,
                                             ],
                                         ],
-                                        'label' => $labels
                                     ]
-                                ]);
+                                ];
+
+                                if (!empty($labels)) {
+                                    $syncData['values']['label'] = $labels;
+                                }
+
+                                $client->getReferenceEntityRecordApi()->upsert($asset->entity, $asset->entity_code, $syncData);
                             }
                         }
 
